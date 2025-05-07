@@ -7,4 +7,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
+
+    Boolean existsByNome(String nome);
+
+    void deleteByNome(String nome);
+
+
 }

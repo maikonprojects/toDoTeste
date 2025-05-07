@@ -4,10 +4,7 @@ import controllersTest.ListaToDo.modelo.Tarefa;
 import controllersTest.ListaToDo.service.TarefaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,21 @@ public class TarefaController {
     public ResponseEntity<List<Tarefa>> listarTudo(){
         return ResponseEntity.status(200).body(service.listar());
     }
+
+    @PostMapping
+    public ResponseEntity<String> adicionarTarefa(@RequestBody Tarefa tarefa){
+        Tarefa tarefa1 = service.cadastrar(tarefa);
+        return ResponseEntity.status(201).body("Tarefa adicionada: " + tarefa1.getNome());
+
+    }
+
+    @DeleteMapping("/{nome}")
+    public ResponseEntity<String> deletarTarefa(@PathVariable String nome){
+        service.deletar(nome);
+        return ResponseEntity.status(200).body("Tarefa removida: " + nome);
+
+    }
+
+
 
 }
